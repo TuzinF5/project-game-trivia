@@ -5,6 +5,7 @@ import TriviaScreen from './pages/TriviaScreen';
 import './App.css';
 import Settings from './pages/Settings';
 import FeedBack from './pages/FeedBack';
+import Ranking from './pages/Ranking';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route exact path="/game" component={ TriviaScreen } />
         <Route exact path="/settings" component={ Settings } />
         <Route exact path="/feedback" component={ FeedBack } />
+        <Route exact path="/ranking" component={ Ranking } />
       </Switch>
     </div>
   );

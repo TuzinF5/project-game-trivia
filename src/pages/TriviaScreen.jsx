@@ -12,6 +12,7 @@ import handleAnswerClickFunc from '../helpers/handleAnswerClick';
 import handleBtnNxtFunc from '../helpers/handleBtnNxt';
 import incorrectOrCorrectFunc from '../helpers/incorrectOrCorrect';
 import disableAnswersFunc from '../helpers/disableAnswers';
+import countDownFunc from '../helpers/countDown';
 import '../assets/css/triviaScreen.css';
 
 class TriviaScreen extends Component {
@@ -24,6 +25,7 @@ class TriviaScreen extends Component {
       isFilled: false,
       answersDisabled: false,
       assertions: 0,
+      timer: 30,
     };
 
     this.fetchTriviaApi = fetchTriviaApiFunc.bind(this);
@@ -35,15 +37,18 @@ class TriviaScreen extends Component {
     this.handleBtnNxt = handleBtnNxtFunc.bind(this);
     this.incorrectOrCorrect = incorrectOrCorrectFunc.bind(this);
     this.disableAnswers = disableAnswersFunc.bind(this);
+    this.countDown = countDownFunc.bind(this);
   }
 
   componentDidMount() {
+    const INTERVAL = 1000;
     this.fetchTriviaApi();
+    this.countDown(INTERVAL);
     setInitialPlayer();
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    const { triviaQuestions, answersDisabled, assertions } = this.state;
+    const { triviaQuestions, answersDisabled, assertions, timer } = this.state;
 
     if (prevState.triviaQuestions.length !== triviaQuestions.length) {
       this.checkQuestions(this.generateAnswers);
@@ -56,10 +61,14 @@ class TriviaScreen extends Component {
     if (prevState.assertions !== assertions) {
       this.setPlayerInfo();
     }
+
+    if (prevState.timer !== timer && timer === 0) {
+      this.disableAnswers();
+    }
   }
 
   render() {
-    const { isFilled, questionSelector, triviaQuestions, answers } = this.state;
+    const { isFilled, questionSelector, triviaQuestions, answers, timer } = this.state;
     const answerSelected = answers[questionSelector];
     const triviaSelected = triviaQuestions[questionSelector];
 
@@ -81,6 +90,7 @@ class TriviaScreen extends Component {
 
           <ProgressBar
             disableAnswers={ this.disableAnswers }
+            timer={ timer }
           />
           <button
             className="btn-next"

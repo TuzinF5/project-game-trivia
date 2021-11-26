@@ -11,7 +11,8 @@ export default class ProgressBar extends Component {
         setInterval(() => {
           const { totalTime } = this.state;
           if (totalTime === 0) {
-            clearInterval(this.state.countDown);
+            const { countDown } = this.state;
+            clearInterval(countDown);
             console.log('aloo');
             return;
           }
@@ -24,7 +25,8 @@ export default class ProgressBar extends Component {
 
   componentDidMount() {
     const { countDown } = this.state;
-    countDown(1000);
+    const INTERVAL = 1000;
+    countDown(INTERVAL);
   }
 
   componentDidUpdate(_prevProps, prevState) {

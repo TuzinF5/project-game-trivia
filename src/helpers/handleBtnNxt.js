@@ -10,6 +10,7 @@ export default function handleBtnNxt() {
   correct.classList.remove('correct-answer');
   wrongs.forEach((wrong) => wrong.classList.remove('wrong-answer'));
   this.setState({
+    timer: 30,
     questionSelector: questionSelector + 1,
   });
 }

@@ -16,6 +16,7 @@ class FeedBack extends Component {
     this.getPlayer = this.getPlayer.bind(this);
     this.messageAssertion = this.messageAssertion.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.goToRanking = this.goToRanking.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,11 @@ class FeedBack extends Component {
     history.push('/');
   }
 
+  goToRanking() {
+    const { history } = this.props;
+    history.push('/ranking');
+  }
+
   render() {
     const { name } = this.props;
     const { getHash, score, message, assertions } = this.state;
@@ -84,6 +90,13 @@ class FeedBack extends Component {
           onClick={ this.handleClick }
         >
           Jogar novamente
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.goToRanking }
+        >
+          Ver Ranking
         </button>
       </div>
     );

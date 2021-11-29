@@ -6,4 +6,5 @@ export default function handleAnswerClick(event) {
   correct.classList.add('correct-answer');
   wrongs.forEach((wrong) => wrong.classList.add('wrong-answer'));
   this.incorrectOrCorrect(event);
+  this.setPlayerInfo();
 }

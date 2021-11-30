@@ -24,6 +24,7 @@ class TriviaScreen extends Component {
       questionSelector: 0,
       isFilled: false,
       answersDisabled: false,
+      score: 0,
       assertions: 0,
       timer: 30,
     };
@@ -68,13 +69,14 @@ class TriviaScreen extends Component {
   }
 
   render() {
-    const { isFilled, questionSelector, triviaQuestions, answers, timer } = this.state;
+    const {
+      isFilled, questionSelector, triviaQuestions, answers, score, timer } = this.state;
     const answerSelected = answers[questionSelector];
     const triviaSelected = triviaQuestions[questionSelector];
 
     return (
       <div>
-        <Header />
+        <Header score={ score } />
         <div className="game-section">
           <div className="question-section">
             <header>

@@ -25,7 +25,7 @@ class Header extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, score } = this.props;
     const { getHash } = this.state;
     return (
       <header>
@@ -35,7 +35,7 @@ class Header extends Component {
           data-testid="header-profile-picture"
         />
         <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">0</p>
+        <p data-testid="header-score">{ score }</p>
       </header>
     );
   }
@@ -44,6 +44,7 @@ class Header extends Component {
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

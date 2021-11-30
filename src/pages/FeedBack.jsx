@@ -16,7 +16,7 @@ class FeedBack extends Component {
     this.getPlayer = this.getPlayer.bind(this);
     this.messageAssertion = this.messageAssertion.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.goToRanking = this.goToRanking.bind(this);
+    this.handleRankingClick = this.handleRankingClick.bind(this);
   }
 
   componentDidMount() {
@@ -26,9 +26,8 @@ class FeedBack extends Component {
   }
 
   getPlayer() {
-    const obejectState = JSON.parse(localStorage.getItem('state'));
-    const { score, assertions } = obejectState.player;
-    console.log(score, assertions);
+    const objectState = JSON.parse(localStorage.getItem('state'));
+    const { score, assertions } = objectState.player;
     this.setState({
       score,
       assertions,
@@ -59,8 +58,24 @@ class FeedBack extends Component {
     history.push('/');
   }
 
-  goToRanking() {
+  handleRankingClick() {
+    const { getHash } = this.state;
     const { history } = this.props;
+    const playerStorage = JSON.parse(localStorage.getItem('state'));
+    const { name, score } = playerStorage.player;
+    const newRanking = {
+      name,
+      score,
+      picture: getHash,
+    };
+    if (localStorage.getItem('ranking')) {
+      const rankingStorage = JSON.parse(localStorage.getItem('ranking'));
+      rankingStorage.push(newRanking);
+      localStorage.setItem('ranking', JSON.stringify(rankingStorage));
+    } else {
+      localStorage.setItem('ranking', JSON.stringify([newRanking]));
+    }
+
     history.push('/ranking');
   }
 
@@ -94,7 +109,7 @@ class FeedBack extends Component {
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ this.goToRanking }
+          onClick={ this.handleRankingClick }
         >
           Ver Ranking
         </button>
